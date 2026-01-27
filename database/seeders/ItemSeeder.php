@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Models\Item;
+use App\Models\Stock;
 
 class ItemSeeder extends Seeder
 {
@@ -20,7 +21,13 @@ class ItemSeeder extends Seeder
             $item->cost_price = $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 6);
 
             $item->sell_price = $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 6);
+            $item->img_path = 'default.jpg';
             $item->save();
+
+            $stock = new Stock;
+            $stock->item_id = $item->item_id;
+            $stock->quantity = 20;
+            $stock->save();
         }
     }
 }
