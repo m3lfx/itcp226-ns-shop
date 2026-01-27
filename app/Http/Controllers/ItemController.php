@@ -78,7 +78,9 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = Item::find($id);
+        $stock = Stock::findorfail($id);
+        return view('item.edit', compact('item', 'stock'));
     }
 
     /**
