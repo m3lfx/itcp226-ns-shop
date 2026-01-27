@@ -8,6 +8,8 @@ use Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Stock;
+use App\Imports\ItemImport;
+use Excel;
 
 class ItemController extends Controller
 {
@@ -97,5 +99,22 @@ class ItemController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function import()
+    {
+
+        Excel::import(
+            new ItemImport,
+            request()
+                ->file('item_upload')
+                ->storeAs(
+                    'files',
+                    request()
+                        ->file('item_upload')
+                        ->getClientOriginalName()
+                )
+        );
+        return redirect()->back()->with('success', 'Excel file Imported Successfully');
     }
 }
