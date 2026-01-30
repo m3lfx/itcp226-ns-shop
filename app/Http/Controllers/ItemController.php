@@ -12,6 +12,7 @@ use App\Imports\ItemImport;
 use App\Imports\ItemStockImport;
 use Excel;
 
+
 class ItemController extends Controller
 {
     /**
@@ -85,7 +86,8 @@ class ItemController extends Controller
     public function edit(string $id)
     {
         $item = Item::find($id);
-        $stock = Stock::findorfail($id);
+        $stock = Stock::find($id);
+        // dd($stock);
         return view('item.edit', compact('item', 'stock'));
     }
 
@@ -94,7 +96,26 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = Item::find($id);
+        $item->description = $request->description;
+        $item->cost_price = $request->cost_price;
+        $item->sell_price = $request->sell_price;
+        $name = $request->file('image')->getClientOriginalName();
+
+
+        $path = Storage::putFileAs(
+            'public/images',
+            $request->file('image'),
+            $request->file('image')->hashName()
+        );
+        $item->img_path = $path;
+        $item->save();
+
+        $stock = new Stock;
+        $stock->item_id = $item->item_id;
+        $stock->quantity = $request->quantity;
+        $stock->save();
+        return redirect()->route('items.index')->with('success', 'item added');
     }
 
     /**
