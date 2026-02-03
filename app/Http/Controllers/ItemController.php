@@ -15,6 +15,7 @@ use Session;
 use App\Cart;
 
 
+
 class ItemController extends Controller
 {
     /**
@@ -147,7 +148,7 @@ class ItemController extends Controller
 
     public function getItems()
     {
-        dump(Session::get('cart'));
+        // dump(Session::get('cart'));
         $items = DB::table('item')->join('stock', 'item.item_id', '=', 'stock.item_id')->get();
         return view('shop.index', compact('items'));
     }
@@ -169,5 +170,17 @@ class ItemController extends Controller
 
 
         return redirect('/')->with('success', 'item added to cart');
+    }
+
+    public function getCart()
+    {
+        // dump(Session::get('cart'));
+        if (!Session::has('cart')) {
+            return view('shop.shopping-cart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        // dd($cart);
+        return view('shop.shopping-cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 }
