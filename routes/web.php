@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +27,12 @@ Route::get('/checkout', [ItemController::class, 'postCheckout'])->name('checkout
 
 Route::post('/items-import', [ItemController::class, 'import'])->name('item.import');
 
+Route::prefix('admin')->group(function () {
+    Route::get('/customers', [DashboardController::class, 'getCustomers'])->name('admin.customers');
+});
 
 Route::resource('items', ItemController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
