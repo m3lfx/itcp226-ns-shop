@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/customers', [DashboardController::class, 'getCustomers'])->name('admin.customers');
     Route::get('/users', [DashboardController::class, 'getUsers'])->name('admin.users');
     Route::get('/orders', [DashboardController::class, 'getOrders'])->name('admin.orders');
+    Route::get('/order/{id}', [OrderController::class, 'processOrder'])->name('admin.orderDetails');
+    Route::post('/order/{id}', [OrderController::class, 'orderUpdate'])->name('admin.orderUpdate');
 });
 
 Route::resource('items', ItemController::class);
