@@ -36,15 +36,15 @@ class CustomersDataTable extends DataTable
      */
     public function query()
     {
-        $users = DB::table('users')
-            ->join('customer', 'users.id', '=', 'customer.user_id')
+        $users = DB::table('users as u')
+            ->join('customer as c', 'u.id', '=', 'c.user_id')
             ->select(
-                'users.id AS id',
-                'users.name as name',
-                'users.email as email',
-                'customer.addressline as address',
-                'customer.phone as phone',
-                'users.created_at'
+                'u.id AS id',
+                'u.name as name',
+                'u.email as email',
+                'c.addressline as address',
+                'c.phone as phone',
+                'u.created_at'
             );
         // ->where('users.id', '<>', Auth::id());
         // ->where('users.id', '<>', 1);
@@ -80,7 +80,7 @@ class CustomersDataTable extends DataTable
             Column::make('id')->title('user id'),
             Column::make('name'),
             Column::make('email'),
-            Column::make('addressline')->title('address'),
+            Column::make('address')->searchable(false)->name('address')->title('address'),
             Column::make('phone')->searchable(false),
             Column::make('created_at')->searchable(false),
             Column::computed('role')
