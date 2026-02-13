@@ -92,6 +92,7 @@ class DashboardController extends Controller
             array_values($orders)
         );
 
+
         $salesChart->options([
             'indexAxis' => 'y',
             'responsive' => true,
@@ -111,6 +112,8 @@ class DashboardController extends Controller
                     ],
                 ],
             ],
+            'fill' => false,
+            'borderColor' => 'blue'
         ]);
 
         $items = DB::table('orderline AS ol')
@@ -126,7 +129,7 @@ class DashboardController extends Controller
         // dd($dataset);
         $dataset = $itemChart->dataset(
             'Item sold',
-            'pie',
+            'doughnut',
             array_values($items)
         );
 
