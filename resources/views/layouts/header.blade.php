@@ -33,16 +33,16 @@
                         {{-- <a class="dropdown-item" href="{{ route('logout') }}">Logout </a> --}}
                         <a class="dropdown-item" href="#">Logout </a>
                     @elseif (Auth::check())
-                        {{-- <a class="dropdown-item" href="{{ route('user.profile') }}">User Profile</a> --}}
-                        <a class="dropdown-item" href="#">User Profile</a>
+                        <a class="dropdown-item" href="{{ route('customers.create') }}">User Profile</a>
+                        {{-- <a class="dropdown-item" href="#">User Profile</a> --}}
                         <div class="dropdown-divider"></div>
-                        {{-- <a class="dropdown-item" href="{{ route('user.logout') }}">Logout </a> --}}
-                        <a class="dropdown-item" href="">Logout </a>
+                        <a class="dropdown-item" href="{{ route('user.logout') }}">Logout </a>
+                        {{-- <a class="dropdown-item" href="">Logout </a> --}}
                     @else
-                        {{-- <a class="dropdown-item" href="{{ route('register') }}">register</a>
-                        <a class="dropdown-item" href="{{ route('login') }}">Login </a> --}}
-                        <a class="dropdown-item" href="">register</a>
-                        <a class="dropdown-item" href="">Login </a>
+                        <a class="dropdown-item" href="{{ route('register') }}">register</a>
+                        <a class="dropdown-item" href="{{ route('login') }}">Login </a>
+                        {{-- <a class="dropdown-item" href="">register</a>
+                        <a class="dropdown-item" href="">Login </a> --}}
                     @endif
                 </div>
     </div>

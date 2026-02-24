@@ -5,7 +5,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\CustomerController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,7 +40,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 });
 
+Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+
+
 Route::resource('items', ItemController::class);
+Route::resource('customers', CustomerController::class);
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

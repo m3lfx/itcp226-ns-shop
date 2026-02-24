@@ -15,7 +15,8 @@ use Excel;
 use Session;
 use App\Cart;
 use Carbon\Carbon;
-
+use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 
 
 class ItemController extends Controller
@@ -223,11 +224,12 @@ class ItemController extends Controller
         // dd($cart, $cart->items);
         try {
 
-            // $customer = Customer::where('user_id', Auth::id())->first();
+
             // dd($customer);
             DB::beginTransaction();
+            $customer = Customer::where('user_id', Auth::id())->first();
             $order = new Order();
-            $order->customer_id = 2;
+            $order->customer_id = $customer->customer_id;
             $order->date_placed = now();
             $order->date_shipped = Carbon::now()->addDays(5);
 
